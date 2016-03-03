@@ -4,10 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.android.banner.example.MainActivity">
 
+    <!--
+        indicator_relative说明：该属性如果设置为true，那么页码指示圆点就叠加在内容展示布局上，位置在下方；
+        如果设置为false，页码指示圆点就在内容展示页下方。
+    -->
     <com.android.tqw.banner.library.ScrollBanner
+        android:id="@+id/loop_banner"
         android:layout_width="match_parent"
-        android:layout_height="150dp"/>
+        android:layout_height="150dp"
+        app:indicator_relative="true"/>
 
 </RelativeLayout>

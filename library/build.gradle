@@ -19,7 +19,7 @@ android {
 }
 
 ext {
-    supportVersion = '23.1.1'
+    supportVersion = '23.2.0'
 }
 
 dependencies {
@@ -27,5 +27,4 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile "com.android.support:support-v4:${supportVersion}"
     compile "com.android.support:appcompat-v7:${supportVersion}"
-    compile "com.squareup.picasso:picasso:2.5.2"
 }

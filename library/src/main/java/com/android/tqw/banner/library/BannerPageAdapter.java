@@ -1,39 +1,37 @@
 package com.android.tqw.banner.library;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-
-import java.util.ArrayList;
 
 /**
  * Created by Hohenheim on 16/2/27.
  */
 public class BannerPageAdapter extends FragmentStatePagerAdapter {
-    private int mDefaultImgResId;
-    private ArrayList<String> mImgUrlList;
+    private BannerItemCallback mItemCallback;
 
-    public BannerPageAdapter(FragmentManager fm) {
+    private int mItemCount;
+    private int mRealItemCount;
+    private boolean mIsLoop;
+
+    public BannerPageAdapter(FragmentManager fm, BannerItemCallback itemCallback) {
         super(fm);
-        mImgUrlList = new ArrayList<>();
+        mItemCallback = itemCallback;
     }
 
     @Override
     public Fragment getItem(int position) {
-        BannerItem bannerItem = new BannerItem();
-        String imgUrl = mImgUrlList.get(position);
+        Fragment fragment = null;
 
-        Bundle bundle = new Bundle();
-        bundle.putString(String.valueOf(bannerItem.hashCode()), imgUrl);
+        if(null != mItemCallback)
+            fragment = mItemCallback.getFragment(position);
 
-        bannerItem.setArguments(bundle);
-        return bannerItem;
+        return fragment;
     }
 
     @Override
     public int getCount() {
-        return mImgUrlList.size();
+        return mItemCount;
     }
 
     @Override
@@ -42,33 +40,23 @@ public class BannerPageAdapter extends FragmentStatePagerAdapter {
     }
 
     /**
-     * 设置默认图片资源ID
+     * 设置显示页面的数量
+     *
+     * @param itemCount 要显示的页面的数量
+     * @param isLoop 是否要循环显示
      */
-    public void setDefaultImgResId(int resId) {
-        mDefaultImgResId = resId;
+    public void setItemCount(int itemCount, boolean isLoop) {
+        mIsLoop = isLoop;
+        mRealItemCount = itemCount;
+        mItemCount = mRealItemCount;
+
+        if(mIsLoop && mRealItemCount>1)
+            mItemCount += 2;
+
+        notifyDataSetChanged();
     }
 
-    /**
-     * 设置图片Url
-     */
-    public boolean setImgUrlList(ArrayList<String> imgUrlList) {
-        boolean setResult = false;
-
-        if(null!=imgUrlList && imgUrlList.size()>0) {
-            if(imgUrlList.size() <= 1) {
-                mImgUrlList = imgUrlList;
-            }
-            else {
-                mImgUrlList.clear();
-                mImgUrlList.addAll(imgUrlList);
-                mImgUrlList.add(0, imgUrlList.get(imgUrlList.size() - 1));
-                mImgUrlList.add(mImgUrlList.size(), imgUrlList.get(0));
-            }
-
-            notifyDataSetChanged();
-            setResult = true;
-        }
-
-        return setResult;
+    public boolean isLoop() {
+        return mIsLoop;
     }
 }
