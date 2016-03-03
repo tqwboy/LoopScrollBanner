@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        mBanner.stopScroll();
+        mBanner.stopScroll(); //退出界面的时候，要关闭轮播，不然轮播线程会一直存在
         super.onDestroy();
     }
 }
