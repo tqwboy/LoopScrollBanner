@@ -18,3 +18,7 @@ dependencies {
 	compile 'com.github.tqwboy:LoopScrollBanner:v1.0'
 }
 ```
+
+使用方法：
+===
+具体请参考项目中的例子和代码
