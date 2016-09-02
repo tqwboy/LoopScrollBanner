@@ -231,6 +231,9 @@ public class ScrollBanner extends FrameLayout {
 
     //变更页码指示器的颜色
     private void changeIndicator(int position) {
+        if(null == mIndicatorViews)
+            return;
+
         int indicatorPosition = getIndicatorPosition(position);
 
         for(int i=0; i<mIndicatorViews.length; ++i) {

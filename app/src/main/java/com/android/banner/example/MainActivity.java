@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mBanner.setShowItemCount(3, true);
+        mBanner.setShowItemCount(1, true);
         mBanner.startScroll();
 
         mHandler.sendEmptyMessageDelayed(0, 3000); //测试设置指示器颜色
