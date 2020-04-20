@@ -3,9 +3,10 @@ package com.android.banner.example;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 
 import com.android.tqw.banner.library.BannerItemCallback;
 import com.android.tqw.banner.library.ScrollBanner;
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        mBanner = (ScrollBanner) findViewById(R.id.loop_banner);
+        mBanner = findViewById(R.id.loop_banner);
         mBanner.initScroll(getSupportFragmentManager(), new BannerItemCallback() {
             @Override
             public Fragment getFragment(int position) {
@@ -72,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mBanner.setShowItemCount(1, true);
+        mBanner.setShowItemCount(3, true);
         mBanner.startScroll();
 
         mHandler.sendEmptyMessageDelayed(0, 3000); //测试设置指示器颜色

@@ -6,15 +6,16 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.viewpager.widget.ViewPager;
 
 import java.lang.ref.WeakReference;
 import java.util.Timer;
@@ -81,8 +82,8 @@ public class ScrollBanner extends FrameLayout {
         else
             rootView = inflater.inflate(R.layout.layout_linear_loop_scroll_banner, this, true);
 
-        mBannerViewPage = (ViewPager) rootView.findViewById(R.id.loop_banner_pager);
-        mIndicatorLayout = (LinearLayout) rootView.findViewById(R.id.indicator_layout);
+        mBannerViewPage = rootView.findViewById(R.id.loop_banner_pager);
+        mIndicatorLayout = rootView.findViewById(R.id.indicator_layout);
 
         mIndicatorNormalColor = ContextCompat.getColor(getContext(), android.R.color.darker_gray);
         mIndicatorSelectedColor = ContextCompat.getColor(getContext(), android.R.color.white);

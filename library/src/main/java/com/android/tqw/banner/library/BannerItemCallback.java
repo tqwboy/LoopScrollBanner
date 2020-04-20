@@ -1,6 +1,6 @@
 package com.android.tqw.banner.library;
 
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 
 /**
  * Created by Hohenheim on 16/2/29.

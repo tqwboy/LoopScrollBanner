@@ -1,8 +1,8 @@
 package com.android.tqw.banner.library;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 
 /**
  * Created by Hohenheim on 16/2/27.
@@ -15,7 +15,7 @@ public class BannerPageAdapter extends FragmentStatePagerAdapter {
     private boolean mIsLoop;
 
     public BannerPageAdapter(FragmentManager fm, BannerItemCallback itemCallback) {
-        super(fm);
+        super(fm, FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         mItemCallback = itemCallback;
     }
 
@@ -32,6 +32,10 @@ public class BannerPageAdapter extends FragmentStatePagerAdapter {
     @Override
     public int getCount() {
         return mItemCount;
+    }
+
+    public int getRealCount() {
+        return mRealItemCount;
     }
 
     @Override
