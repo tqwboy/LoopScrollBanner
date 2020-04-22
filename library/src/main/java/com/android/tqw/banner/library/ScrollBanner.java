@@ -92,24 +92,19 @@ public class ScrollBanner extends FrameLayout {
         mBannerViewPage.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                if(null==mBannerAdapter || mBannerAdapter.getCount()<=1 || !mBannerAdapter.isLoop())
+                if(null==mBannerAdapter || mBannerAdapter.getCount()<=1 || !mBannerAdapter.isLoop()) {
                     return;
+                }
 
                 //滑动结束后，判断滑到的位置是否为第一个或者是最后一个
                 if (positionOffset + positionOffsetPixels == 0 ) {
-                    int itemCount = mBannerAdapter.getCount();
 
-                    int current = -1;
-                    if(position <= 0)
-                        current = itemCount - 2;
-                    else if(position >= itemCount - 1)
-                        current = 1;
-
-                    if(current >= 0) {
+                    int current = mBannerAdapter.getRealPosition(position);
+                    if (current != position) {
                         //延迟跳转，避免闪烁
                         Message msg = mHandler.obtainMessage();
                         msg.what = 1;
-                        msg.obj = new Integer(current);
+                        msg.obj = current;
                         mHandler.sendMessageDelayed(msg, 10);
                     }
                     else {

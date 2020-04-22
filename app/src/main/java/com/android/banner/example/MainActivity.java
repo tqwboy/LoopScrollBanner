@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         mBanner = findViewById(R.id.loop_banner);
         mBanner.initScroll(getSupportFragmentManager(), new BannerItemCallback() {
             @Override
-            public Fragment getFragment(int position) {
+            public Fragment getFragment(int position, int dataPosition) {
                 /*
                  * 创建展示内容的Fragment，如果是循环轮播，整个Banner的页面数量会比设置的多2个
                  * 所以，在循环轮播的情况下，第0页和倒数第2页的内容应该设置为一样
@@ -50,14 +50,12 @@ public class MainActivity extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 int colorId;
 
-                switch(position) {
+                switch(dataPosition) {
                     case 0:
-                    case 3:
                         colorId = android.R.color.holo_red_light;
                         break;
 
                     case 1:
-                    case 4:
                         colorId = android.R.color.black;
                         break;
 

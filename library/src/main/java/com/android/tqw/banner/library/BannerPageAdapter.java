@@ -21,21 +21,29 @@ public class BannerPageAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        Fragment fragment = null;
+        int dataPosition;
+        int lastItemPosition = mItemCount - 1;
+        if(mItemCount>1 && mIsLoop) {
+            if(position == 0) {
+                dataPosition = lastItemPosition;
+            }
+            else if(position == lastItemPosition) {
+                dataPosition = 0;
+            }
+            else {
+                dataPosition = position - 1;
+            }
+        }
+        else {
+            dataPosition = position;
+        }
 
-        if(null != mItemCallback)
-            fragment = mItemCallback.getFragment(position);
-
-        return fragment;
+        return mItemCallback.getFragment(position, dataPosition);
     }
 
     @Override
     public int getCount() {
         return mItemCount;
-    }
-
-    public int getRealCount() {
-        return mRealItemCount;
     }
 
     @Override
@@ -62,5 +70,20 @@ public class BannerPageAdapter extends FragmentStatePagerAdapter {
 
     public boolean isLoop() {
         return mIsLoop;
+    }
+
+    public int getRealPosition(int position) {
+        int realPosition = position;
+
+        if (mItemCount>1 && mIsLoop) {
+            if(position == 0) {
+                realPosition = mItemCount - 2;
+            }
+            else if (position == mItemCount - 1) {
+                realPosition = 1;
+            }
+        }
+
+        return realPosition;
     }
 }
