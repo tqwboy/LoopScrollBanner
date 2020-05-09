@@ -22,12 +22,11 @@ public class BannerPageAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         int dataPosition;
-        int lastItemPosition = mItemCount - 1;
         if(mItemCount>1 && mIsLoop) {
             if(position == 0) {
-                dataPosition = lastItemPosition;
+                dataPosition = mRealItemCount - 1;
             }
-            else if(position == lastItemPosition) {
+            else if(position == mItemCount - 1) {
                 dataPosition = 0;
             }
             else {
@@ -62,8 +61,9 @@ public class BannerPageAdapter extends FragmentStatePagerAdapter {
         mRealItemCount = itemCount;
         mItemCount = mRealItemCount;
 
-        if(mIsLoop && mRealItemCount>1)
+        if(mIsLoop && mRealItemCount>1) {
             mItemCount += 2;
+        }
 
         notifyDataSetChanged();
     }
