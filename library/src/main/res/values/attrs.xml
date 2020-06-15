@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <attr name="indicator_relative" format="boolean"/>
+    <attr name="view_page_id" format="reference"/>
 
     <declare-styleable name="ScrollBanner">
         <attr name="indicator_relative" />
+        <attr name="view_page_id" />
     </declare-styleable>
 </resources>

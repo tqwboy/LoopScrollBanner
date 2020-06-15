@@ -13,6 +13,7 @@ import com.android.tqw.banner.library.ScrollBanner;
 
 public class MainActivity extends AppCompatActivity {
     private ScrollBanner mBanner;
+    private ScrollBanner mBanner2;
     private Handler mHandler;
 
     @Override
@@ -24,6 +25,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void handleMessage(Message msg) {
                 mBanner.setIndicatorColor(ContextCompat.getColor(getApplicationContext(),
+                        android.R.color.holo_blue_light),
+                        ContextCompat.getColor(getApplicationContext(),
+                        android.R.color.holo_orange_dark));
+
+                mBanner2.setIndicatorColor(ContextCompat.getColor(getApplicationContext(),
                         android.R.color.holo_blue_light),
                         ContextCompat.getColor(getApplicationContext(),
                         android.R.color.holo_orange_dark));
@@ -70,9 +76,46 @@ public class MainActivity extends AppCompatActivity {
                 return pageFragment;
             }
         });
-
         mBanner.setShowItemCount(3, true);
         mBanner.startScroll();
+
+        mBanner2 = findViewById(R.id.loop_banner2);
+        mBanner2.initScroll(getSupportFragmentManager(), new BannerItemCallback() {
+            @Override
+            public Fragment getFragment(int position, int dataPosition) {
+                /*
+                 * 创建展示内容的Fragment，如果是循环轮播，整个Banner的页面数量会比设置的多2个
+                 * 所以，在循环轮播的情况下，第0页和倒数第2页的内容应该设置为一样
+                 * 同理，第1页和最后一页的内容应该设置为一样
+                 */
+
+                PageItem pageFragment = new PageItem();
+
+                Bundle bundle = new Bundle();
+                int colorId;
+
+                switch(dataPosition) {
+                    case 0:
+                        colorId = android.R.color.holo_red_light;
+                        break;
+
+                    case 1:
+                        colorId = android.R.color.black;
+                        break;
+
+                    default:
+                        colorId = android.R.color.holo_green_light;
+                        break;
+                }
+
+                bundle.putInt(String.valueOf(pageFragment.hashCode()), colorId);
+                pageFragment.setArguments(bundle);
+
+                return pageFragment;
+            }
+        });
+        mBanner2.setShowItemCount(3, true);
+        mBanner2.startScroll();
 
         mHandler.sendEmptyMessageDelayed(0, 3000); //测试设置指示器颜色
     }
@@ -80,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         mBanner.stopScroll(); //退出界面的时候，要关闭轮播，不然轮播线程会一直存在
+        mBanner2.stopScroll();
         super.onDestroy();
     }
 }

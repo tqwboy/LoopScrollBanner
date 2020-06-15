@@ -9,6 +9,7 @@ import android.os.Message;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -61,6 +62,7 @@ public class ScrollBanner extends FrameLayout {
         LayoutInflater inflater = LayoutInflater.from(context);
 
         boolean indicatorInnerLayout = true;
+        int viewPageId = 1;
         if(null != attrs) {
             Resources.Theme layoutTheme = context.getTheme();
             TypedArray attributeArray = layoutTheme.obtainStyledAttributes(attrs, R.styleable
@@ -71,6 +73,8 @@ public class ScrollBanner extends FrameLayout {
                 int attr = attributeArray.getIndex(i);
                 if(attr == R.styleable.ScrollBanner_indicator_relative)
                     indicatorInnerLayout = attributeArray.getBoolean(i, true);
+                else if(attr == R.styleable.ScrollBanner_view_page_id)
+                    viewPageId = attributeArray.getResourceId(i, 1);
             }
 
             attributeArray.recycle();
@@ -82,9 +86,14 @@ public class ScrollBanner extends FrameLayout {
         else
             rootView = inflater.inflate(R.layout.layout_linear_loop_scroll_banner, this, true);
 
-        mBannerViewPage = rootView.findViewById(R.id.loop_banner_pager);
-        mIndicatorLayout = rootView.findViewById(R.id.indicator_layout);
+        ViewGroup viewPageLayout = rootView.findViewById(R.id.viewpage_layout);
+        mBannerViewPage = new ViewPager(getContext());
+        mBannerViewPage.setId(viewPageId);
+        LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+        mBannerViewPage.setLayoutParams(params);
+        viewPageLayout.addView(mBannerViewPage);
 
+        mIndicatorLayout = rootView.findViewById(R.id.indicator_layout);
         mIndicatorNormalColor = ContextCompat.getColor(getContext(), android.R.color.darker_gray);
         mIndicatorSelectedColor = ContextCompat.getColor(getContext(), android.R.color.white);
 

@@ -15,6 +15,16 @@
         android:id="@+id/loop_banner"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        app:indicator_relative="true"/>
+        app:indicator_relative="true"
+        app:view_page_id="@+id/page1"/>
+
+    <com.android.tqw.banner.library.ScrollBanner
+        android:id="@+id/loop_banner2"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_below="@+id/loop_banner"
+        android:layout_marginTop="50dp"
+        app:indicator_relative="false"
+        app:view_page_id="@+id/page2"/>
 
 </RelativeLayout>
