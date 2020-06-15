@@ -12,10 +12,10 @@ allprojects {
 }
 ```
 
-然后在app/build.gradle下的dependencies中，添加compile 'com.github.tqwboy:LoopScrollBanner:2.0.1'，例子如下：
+然后在app/build.gradle下的dependencies中，添加compile 'com.github.tqwboy:LoopScrollBanner:2.1.0'，例子如下：
 ```c
 dependencies {
-	compile 'com.github.tqwboy:LoopScrollBanner:2.0.1'
+	compile 'com.github.tqwboy:LoopScrollBanner:2.1.0'
 }
 ```
 
